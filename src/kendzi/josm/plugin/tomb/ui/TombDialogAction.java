@@ -363,29 +363,17 @@ public class TombDialogAction extends TombDialog {
 
         n.put(KEY_HISTORIC, defaultValue((String) this.getCbHistoric().getSelectedItem(), VALUE_TOMB));
 
-        n.put(KEY_TOMB, nullOnBlank((String) this.cbTombType.getSelectedItem()));
-        n.put(KEY_RELIGION, nullOnBlank((String) this.cbReligion.getSelectedItem()));
+        n.put(KEY_TOMB, StringUtil.nullOnBlank((String) this.cbTombType.getSelectedItem()));
+        n.put(KEY_RELIGION, StringUtil.nullOnBlank((String) this.cbReligion.getSelectedItem()));
 
-        n.put(KEY_WIKIPEDIA, nullOnBlank(this.txtWikipedia.getText()));
-        n.put(KEY_IMAGE, nullOnBlank(this.txtImage.getText()));
+        n.put(KEY_WIKIPEDIA, StringUtil.nullOnBlank(this.txtWikipedia.getText()));
+        n.put(KEY_IMAGE, StringUtil.nullOnBlank(this.txtImage.getText()));
     }
 
     private String defaultValue(String str, String defaultValue) {
         if (StringUtil.isBlankOrNull(str)) {
             return defaultValue;
         }
-        return str;
-    }
-
-    private String nullOnBlank(String str) {
-        if (str == null) {
-            return null;
-        }
-
-        if ("".equals(str.trim())) {
-            return null;
-        }
-
         return str;
     }
 
@@ -551,14 +539,14 @@ public class TombDialogAction extends TombDialog {
      * @param newRelation
      */
     public void injectRelation(PersonModel pm, Relation newRelation) {
-        newRelation.put(KEY_NAME, nullOnBlank(pm.getName()));
-        newRelation.put(KEY_BORN, nullOnBlank(pm.getBorn()));
-        newRelation.put(KEY_DIED, nullOnBlank(pm.getDied()));
-        newRelation.put(KEY_WIKIPEDIA, nullOnBlank(pm.getWikipedia()));
-        newRelation.put(KEY_DESCRIPTION, nullOnBlank(pm.getDescription()));
+        newRelation.put(KEY_NAME, StringUtil.nullOnBlank(pm.getName()));
+        newRelation.put(KEY_BORN, StringUtil.nullOnBlank(pm.getBorn()));
+        newRelation.put(KEY_DIED, StringUtil.nullOnBlank(pm.getDied()));
+        newRelation.put(KEY_WIKIPEDIA, StringUtil.nullOnBlank(pm.getWikipedia()));
+        newRelation.put(KEY_DESCRIPTION, StringUtil.nullOnBlank(pm.getDescription()));
 
-        newRelation.put(KEY_LIVED_IN, nullOnBlank(pm.getLivedIn()));
-        newRelation.put(KEY_FROM_FAMILY, nullOnBlank(pm.getFromFamily()));
+        newRelation.put(KEY_LIVED_IN, StringUtil.nullOnBlank(pm.getLivedIn()));
+        newRelation.put(KEY_FROM_FAMILY, StringUtil.nullOnBlank(pm.getFromFamily()));
     }
 
     public void localize() {

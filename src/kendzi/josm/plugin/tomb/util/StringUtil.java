@@ -50,4 +50,16 @@ public class StringUtil {
             return s1.equals(s2);
         }
     }
+
+    public static String nullOnBlank(String str) {
+        if (str == null) {
+            return null;
+        }
+
+        if ("".equals(str.trim())) {
+            return null;
+        }
+
+        return str;
+    }
 }
