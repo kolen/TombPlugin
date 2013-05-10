@@ -490,7 +490,7 @@ public class TombDialogAction extends TombDialog {
      * @param pm Person model (having no relation yet) to which to add this tomb/memorial
      */
     private void saveRelation(OsmPrimitive tombPrimitive, PersonModel pm) {
-
+        if (pm.getRelation() != null) throw new IllegalArgumentException("Person model already has relation");
 
         Relation newRelation = new Relation();
         newRelation.addMember(new RelationMember(getRoleForTombPrimitive(tombPrimitive), tombPrimitive));
