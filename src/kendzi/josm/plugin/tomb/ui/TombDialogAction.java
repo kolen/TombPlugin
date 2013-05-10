@@ -355,6 +355,10 @@ public class TombDialogAction extends TombDialog {
 
 
 
+    /**
+     * Sets tags of {@link OsmPrimitive} representing tomb or memorial to current values from this dialog's text and
+     * combo box fields.
+     */
     private void injectTombPrimitive(OsmPrimitive n) {
 
         n.put(KEY_HISTORIC, defaultValue((String) this.getCbHistoric().getSelectedItem(), VALUE_TOMB));
@@ -386,6 +390,13 @@ public class TombDialogAction extends TombDialog {
     }
 
 
+    /**
+     * Saves list of persons to tomb primitive and removes removed persons, updating underlying relations.
+     *
+     * @param tombPrimitive OSM primitive representing tomb
+     * @param persons2 New list of persons to save to tomb
+     * @param personsRemoved Set of persons removed from tomb
+     */
     private void savePersons(OsmPrimitive tombPrimitive, List<PersonModel> persons2, Set<Relation> personsRemoved) {
 
         for (PersonModel pm : persons2) {
@@ -401,6 +412,14 @@ public class TombDialogAction extends TombDialog {
         }
     }
 
+    /**
+     * Removes OSM primitive representing tomb/memorial from relation, only it is tomb/memorial.
+     *
+     * It will only remove primitive from relation (as member) if it has correct tomb or memorial tags.
+     *
+     * @param node
+     * @param relation
+     */
     private void removeRelation(OsmPrimitive node, Relation relation) {
         //		if (relation.getMembersCount() < 2)
 
@@ -462,6 +481,14 @@ public class TombDialogAction extends TombDialog {
                 member.getMember().equals(tombPrimitive);
     }
 
+    /**
+     * Creates a new relation for newly created {@link PersonModel} and saves it.
+     *
+     * Creates a new OSM relation for {@link PersonModel} and fills all required fields of it from model.
+     *
+     * @param tombPrimitive OSM primitive (usually node) representing this tomb/memorial
+     * @param pm Person model (having no relation yet) to which to add this tomb/memorial
+     */
     private void saveRelation(OsmPrimitive tombPrimitive, PersonModel pm) {
 
 
@@ -476,6 +503,19 @@ public class TombDialogAction extends TombDialog {
 
     }
 
+    /**
+     * Updates relation associated with {@link PersonModel} with values from {@link PersonModel} and includes tomb
+     * primitive in it.
+     * <p/>
+     * Updates {@link PersonModel}'s relation with new values from person model (name, birth and death dates, etc),
+     * ensuring that given {@link OsmPrimitive} for tomb is included in this relation as tomb/memorial (if it is already
+     * included, it does not add it again, if it is not included or have not tomb/memorial role, it adds this
+     * tomb/memorial primitive as member).
+     *
+     * @param relation
+     * @param tombPrimitive
+     * @param pm
+     */
     private void updateRelation(Relation relation, OsmPrimitive tombPrimitive, PersonModel pm) {
         Relation newRelation = new Relation(relation);
         //        Main.main.undoRedo.add(new AddCommand(w));
@@ -505,6 +545,8 @@ public class TombDialogAction extends TombDialog {
     }
 
     /**
+     * Updates tags of person relation with values from person model.
+     *
      * @param pm
      * @param newRelation
      */
