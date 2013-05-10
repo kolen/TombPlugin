@@ -417,10 +417,10 @@ public class TombDialogAction extends TombDialog {
      *
      * It will only remove primitive from relation (as member) if it has correct tomb or memorial tags.
      *
-     * @param node
+     * @param tombPrimitive
      * @param relation
      */
-    private void removeRelation(OsmPrimitive node, Relation relation) {
+    private void removeRelation(OsmPrimitive tombPrimitive, Relation relation) {
         //		if (relation.getMembersCount() < 2)
 
         Relation newRelation = new Relation(relation);
@@ -431,8 +431,8 @@ public class TombDialogAction extends TombDialog {
 
             RelationMember m = newRelation.getMember(i);
 
-            if (m.getType().equals(node.getType())
-                    && m.getUniqueId() == node.getUniqueId()
+            if (m.getType().equals(tombPrimitive.getType())
+                    && m.getUniqueId() == tombPrimitive.getUniqueId()
                     && (ROLE_TOMB.equals(m.getRole()) || ROLE_MEMORIAL.equals(m.getRole()))) {
 
                 newRelation.removeMember(i);
